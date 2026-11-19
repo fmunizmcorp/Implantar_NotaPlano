@@ -2,7 +2,7 @@
 # API de configuração do NotaPlano (para a IA que chama APIs)
 
 - Endereço: `https://www.notaplano.com.br/api/v1` · documentação completa: https://www.notaplano.com.br/api/docs · OpenAPI: https://www.notaplano.com.br/api/openapi.json
-- Autenticação: `Authorization: Bearer np_live_…` — o **token de implantação** que a pessoa gera em Implantação com IA → Avançado (vale 7 dias; escopos: `config:ler`, `config:escrever`, `emitentes:producao`, `notas:ler`, `notas:emitir`, `cadastros:ler`). Ele **não** envia certificado.
+- Autenticação: `Authorization: Bearer np_live_…` — o **token de implantação** que a pessoa gera em Implantação com IA → Avançado (vale 7 dias; escopos: `config:ler`, `config:escrever`, `notas:emitir_teste`). Ele **não** envia certificado.
 - Corpo em JSON (`Content-Type: application/json`). Erros: `{"erro": {"codigo", "mensagem", "campo"}}` — veja [ERROS.md](ERROS.md).
 - Alíquotas em PERCENTUAL (2 = 2%) nas rotas de configuração. Campo desconhecido é recusado.
 - Ordem: `GET /implantacao/situacao` → `POST /implantacao/simular` → `POST /implantacao` → (certificado na tela) → nota de teste → `POST /emitentes/{id}/producao` com `{"confirmo": true}` só depois do "sim" da pessoa.
@@ -14,7 +14,8 @@
 - `config:ler` — Ler a configuração: empresa emissora e perfil fiscal em detalhe, certificado (só validade e titular), serviços da tabela nacional e os sugeridos pelo CNAE, a situação da implantação (o próximo passo); testar a conexão com a prefeitura
 - `config:escrever` — Configurar: cadastrar e alterar empresas emissoras (a nova nasce sempre em HOMOLOGAÇÃO), numeração, desativar e reativar, perfis fiscais
 - `certificados:escrever` — Enviar o certificado digital A1 (.pfx em base64 + senha), guardado cifrado como na tela. Dê este escopo só ao sistema da empresa — nunca a uma IA
-- `emitentes:producao` — Passar uma empresa emissora de HOMOLOGAÇÃO para PRODUÇÃO (as notas passam a valer), só com a nota de teste autorizada e "confirmo": true
+- `emitentes:producao` — Passar uma empresa emissora de HOMOLOGAÇÃO para PRODUÇÃO (as notas passam a valer), só com a nota de teste autorizada e "confirmo": true; voltar para homologação ou desativar uma empresa em produção
+- `notas:emitir_teste` — Criar e emitir nota de TESTE só em empresa emissora em HOMOLOGAÇÃO (sem valor fiscal) — o escopo do token de implantação; nunca emite de verdade
 
 ## Rotas
 ### GET /eu
@@ -53,7 +54,7 @@ Resposta (exemplo):
 ```
 
 ### POST /notas
-Cria a nota (calcula e confere; não envia). Tomador: `tomador_id` (cadastrado) e/ou `tomador` (dados). Com os dois, o que vier preenchido em `tomador` completa/corrige o cadastrado para esta nota e atualiza o cadastro (modo completo; `salvar_tomador: false` só a nota); documento diferente do cadastrado → 422 `tomador_documento_diverge`. NFS-e do condomínio (99.05.01): o grupo `condominio` (ver a seção da documentação) no lugar de `valor_servicos`.
+Cria a nota (calcula e confere; não envia). Com notas:emitir_teste, só em empresa em homologação. Tomador: `tomador_id` (cadastrado) e/ou `tomador` (dados). Com os dois, o que vier preenchido em `tomador` completa/corrige o cadastrado para esta nota e atualiza o cadastro (modo completo; `salvar_tomador: false` só a nota); documento diferente do cadastrado → 422 `tomador_documento_diverge`. NFS-e do condomínio (99.05.01): o grupo `condominio` (ver a seção da documentação) no lugar de `valor_servicos`.
 
 Escopo: `notas:emitir`
 
@@ -64,7 +65,7 @@ Corpo (exemplo):
   "perfil_id": "uuid",
   "tomador": {
     "documento": "CPF_OU_CNPJ",
-    "im": "123456",
+    "im": "INSCRICAO_MUNICIPAL",
     "email": "contato@empresa.example"
   },
   "valor_servicos": 1500,
@@ -132,7 +133,7 @@ Resposta (exemplo):
 ```
 
 ### POST /notas/{id}/emitir
-Transmite à prefeitura. Com {"fila": true} (ou ?fila=1 / "Prefer: respond-async") a nota vai para a FILA DE EMISSÃO e a resposta é 202 na hora; sem isso emite agora — e, se o servidor estiver no limite de emissões ao mesmo tempo ou a prefeitura fora do ar, também vai para a fila (202 com "motivo"). Se a última tentativa desta nota ficou SEM RESPOSTA da prefeitura e o número se perdeu, a resposta é 409 "conferir_antes": confira na prefeitura e, se a nota não saiu, envie {"confirmar_reenvio": "<confirmar_reenvio_token do 409>"} com uma NOVA Idempotency-Key (a resposta 409 fica guardada na chave anterior). Pela fila, o item termina com "codigo": "conferir_antes" (GET /fila/{id}) e sem o código de confirmação: depois de conferir, chame esta rota SEM fila para receber o 409 com o confirmar_reenvio_token. Sem fila, com a prefeitura lenta a resposta pode levar até ~90 s: use tempo-limite de 100 s ou mais (ou {"fila": true}); se a sua conexão cair antes da resposta, NÃO crie outra nota — consulte GET /notas/{id} (a emissão continua no servidor) antes de repetir
+Transmite à prefeitura (com notas:emitir_teste, só a nota de empresa em homologação). Com {"fila": true} (ou ?fila=1 / "Prefer: respond-async") a nota vai para a FILA DE EMISSÃO e a resposta é 202 na hora; sem isso emite agora — e, se o servidor estiver no limite de emissões ao mesmo tempo ou a prefeitura fora do ar, também vai para a fila (202 com "motivo"). Se a última tentativa desta nota ficou SEM RESPOSTA da prefeitura e o número se perdeu, a resposta é 409 "conferir_antes": confira na prefeitura e, se a nota não saiu, envie {"confirmar_reenvio": "<confirmar_reenvio_token do 409>"} com uma NOVA Idempotency-Key (a resposta 409 fica guardada na chave anterior). Pela fila, o item termina com "codigo": "conferir_antes" (GET /fila/{id}) e sem o código de confirmação: depois de conferir, chame esta rota SEM fila para receber o 409 com o confirmar_reenvio_token. Sem fila, com a prefeitura lenta a resposta pode levar até ~90 s: use tempo-limite de 100 s ou mais (ou {"fila": true}); se a sua conexão cair antes da resposta, NÃO crie outra nota — consulte GET /notas/{id} (a emissão continua no servidor) antes de repetir
 
 Escopo: `notas:emitir`
 
@@ -210,7 +211,7 @@ Escopo: `cadastros:ler`
 Parâmetros: `ativos`
 
 ### GET /implantacao/situacao
-Situação da implantação, por empresa emissora: cadastro, prefeitura, inscrição municipal, certificado, numeração, perfil fiscal, nota de teste e produção — cada item com o que fazer e o link da tela, e o próximo passo. (Também com cadastros:ler)
+Situação da implantação, por empresa emissora: cadastro, prefeitura, inscrição municipal, certificado, numeração, perfil fiscal, nota de teste e produção — cada item com o que fazer e o link da tela, e o próximo passo.
 
 Escopo: `config:ler`
 
@@ -335,7 +336,7 @@ Corpo (exemplo):
 {
   "nome": "Matriz",
   "cnpj": "CNPJ_DA_EMPRESA",
-  "im": "0854680000100",
+  "im": "INSCRICAO_MUNICIPAL",
   "regime_tributario": "nao_optante",
   "cnae": "8630503",
   "municipio": "Brasília/DF",
@@ -371,30 +372,27 @@ Resposta (exemplo):
 ```
 
 ### GET /emitentes/{id}
-Empresa emissora em detalhe: cadastro, endereço, regime, preferências (e-mail automático, cópias, alertas), certificado (validade e titular), numeração e o link da tela. (Também com cadastros:ler)
+Empresa emissora em detalhe: cadastro, endereço, regime, preferências (e-mail automático, cópias, alertas), certificado (validade e titular), numeração e o link da tela.
 
 Escopo: `config:ler`
 
 ### PUT /emitentes/{id}
-Altera a empresa emissora: só os campos enviados mudam (os mesmos do cadastro, mais preferencias, crt, simples, condominio_edilicio e texto_padrao_discriminacao). Produção não se liga aqui (use /producao); a forma de emitir muda na tela
+Altera a empresa emissora: só os campos enviados mudam (os mesmos do cadastro, mais preferencias, crt, simples, condominio_edilicio e texto_padrao_discriminacao). Produção não se liga aqui (use /producao); voltar de produção para homologação pede emitentes:producao. Só na tela: a forma de emitir, a troca de CNPJ e os e-mails que recebem cópia das notas e os alertas (403/422 so_na_tela)
 
 Escopo: `config:escrever`
 
 Corpo (exemplo):
 ```json
 {
-  "im": "0854680000100",
+  "im": "INSCRICAO_MUNICIPAL",
   "preferencias": {
-    "email_tomador": true,
-    "copias": [
-      "contato@empresa.example"
-    ]
+    "email_tomador": true
   }
 }
 ```
 
 ### POST /emitentes/{id}/desativar
-Desativa a empresa emissora (não emite mais; nada é apagado)
+Desativa a empresa emissora (não emite mais; nada é apagado). Em produção, pede emitentes:producao
 
 Escopo: `config:escrever`
 
@@ -404,7 +402,7 @@ Reativa a empresa emissora (conta no limite de CNPJs do plano; em produção, co
 Escopo: `config:escrever`
 
 ### PUT /emitentes/{id}/numeracao
-Define a série e o PRÓXIMO número da DPS (tipo "dps", o padrão; "rps" ou "nfe"). Quem já emitia por outro sistema continua do último número + 1. No Emissor Nacional a série vai de 1 a 49999
+Define a série e o PRÓXIMO número da DPS (tipo "dps", o padrão; "rps" ou "nfe"). Quem já emitia por outro sistema continua do último número + 1. Pela API o número nunca recua (422 numeracao_recuo; recuar só na tela). No Emissor Nacional a série vai de 1 a 49999
 
 Escopo: `config:escrever`
 
@@ -430,7 +428,7 @@ Resposta (exemplo):
 ```
 
 ### GET /emitentes/{id}/certificado
-Certificado digital A1 da empresa: validade, titular e se venceu (nunca o arquivo nem a senha). (Também com cadastros:ler)
+Certificado digital A1 da empresa: validade, titular e se venceu (nunca o arquivo nem a senha).
 
 Escopo: `config:ler`
 
@@ -447,7 +445,7 @@ Resposta (exemplo):
 ```
 
 ### POST /emitentes/{id}/certificado
-Envia o certificado A1 (.pfx em base64 + senha), guardado cifrado. Recusa senha errada, arquivo sem a chave privada e certificado de outro CNPJ (o atual continua valendo). Use só no sistema da empresa — nunca mande o certificado a uma IA; o cliente também pode enviar pela tela. Limite: 10 a cada 15 min
+Envia o certificado A1 (.pfx em base64 + senha), guardado cifrado. Recusa senha errada, arquivo sem a chave privada e certificado de outro CNPJ (o atual continua valendo). Use só no sistema da empresa — nunca mande o certificado a uma IA; o cliente também pode enviar pela tela. Até 100 KB. Limite: 10 a cada 15 min
 
 Escopo: `certificados:escrever`
 
@@ -484,7 +482,7 @@ Corpo (exemplo):
 ```
 
 ### GET /servicos
-Busca na tabela nacional de serviços pelo nome (até 15). (Também com cadastros:ler)
+Busca na tabela nacional de serviços pelo nome (até 15).
 
 Escopo: `config:ler`
 
@@ -503,24 +501,24 @@ Resposta (exemplo):
 ```
 
 ### GET /servicos/sugeridos
-Serviços sugeridos pelos CNAEs (principal e secundários) das empresas emissoras ativas, ou de uma (emitente_id). (Também com cadastros:ler)
+Serviços sugeridos pelos CNAEs (principal e secundários) das empresas emissoras ativas, ou de uma (emitente_id).
 
 Escopo: `config:ler`
 
 Parâmetros: `emitente_id`
 
 ### GET /servicos/{codigo}
-O serviço da tabela nacional (6 dígitos, ex.: 040101): nome, NBS possíveis e os códigos do IBS/CBS sugeridos (CST, classificação, redução) e, no DF, o código municipal. Base para o perfil fiscal. (Também com cadastros:ler)
+O serviço da tabela nacional (6 dígitos, ex.: 040101): nome, NBS possíveis e os códigos do IBS/CBS sugeridos (CST, classificação, redução) e, no DF, o código municipal. Base para o perfil fiscal.
 
 Escopo: `config:ler`
 
 ### GET /perfis/{id}
-Perfil fiscal em detalhe, alíquotas em PERCENTUAL (aliquotas_em: "percentual"). (Também com cadastros:ler)
+Perfil fiscal em detalhe, alíquotas em PERCENTUAL (aliquotas_em: "percentual").
 
 Escopo: `config:ler`
 
 ### POST /perfis
-Cria um perfil fiscal. Alíquotas em PERCENTUAL (2 = 2%; 0,65 = 0,65%). Conferido como na revisão fiscal: perfil ativo com problema que faz a prefeitura recusar a nota (sem NBS, ISS fora da faixa, retenção sem alíquota…) volta 422 perfil_com_problema com a lista. Campo desconhecido é recusado
+Cria um perfil fiscal. Alíquotas em PERCENTUAL (2 = 2%; 0,65 = 0,65%; fração como 0,0065 é recusada). NBS, IBS/CBS, item e código municipal em branco = completados pela tabela oficial (a resposta diz o que foi completado em `preenchidos`). Conferido como na revisão fiscal: perfil ativo com problema que faz a prefeitura recusar a nota (sem NBS, ISS fora da faixa, retenção sem alíquota…) volta 422 perfil_com_problema com a lista. Campo desconhecido é recusado
 
 Escopo: `config:escrever`
 
@@ -529,12 +527,8 @@ Corpo (exemplo):
 {
   "nome": "Consulta médica — pessoa física",
   "tributacao_nacional": "040101",
-  "nbs": "123012200",
-  "ctrib_mun": "401",
   "aliq_iss": 2,
   "retem_iss": false,
-  "situacao_tributaria": "000",
-  "classificacao_tributaria": "000001",
   "padrao_pf": true
 }
 ```

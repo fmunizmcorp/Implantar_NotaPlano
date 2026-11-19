@@ -9,14 +9,14 @@ documentos e monta a configuração; você confere e aplica.
 2. Copie o prompt (ChatGPT ou Claude) e cole numa conversa nova.
 3. Responda às perguntas e mande o cartão CNPJ e uma nota fiscal antiga, se tiver.
 4. Cole no NotaPlano o **manifesto** que a IA entregar → **Conferir** (nada é gravado) → **Aplicar**.
-5. Envie o certificado digital na página da empresa, emita a nota de teste e passe para produção.
+5. Envie o certificado digital na página da empresa, emita a nota de teste e passe para produção (você, na tela).
 
 ## Os três jeitos
 | Jeito | Para quem | Como |
 |---|---|---|
 | **Manifesto colado na tela** | todo mundo, qualquer IA | o prompt + Conferir/Aplicar ([chatgpt/](chatgpt/COMO-USAR.md), [claude/](claude/COMO-USAR.md)) |
-| **A IA aplica pela API** | quem usa Claude Code ou tem sistema próprio | token de implantação (vale 7 dias) — [ia/API.md](ia/API.md) |
-| **Conector NotaPlano** | ChatGPT e Claude, entrando com a sua conta | em breve |
+| **A IA aplica pela API** | quem usa Claude Code ou tem sistema próprio | token de implantação (vale 7 dias; configura e emite só nota de teste) — [ia/API.md](ia/API.md) |
+| **Conector NotaPlano (MCP)** | Claude Code e sistemas, com o token; ChatGPT e Claude "um clique" em breve | `https://www.notaplano.com.br/mcp` — [ia/MCP.md](ia/MCP.md) |
 
 ## Segurança
 - O **certificado digital e a senha dele nunca passam pela IA**: você envia direto na tela do NotaPlano.
@@ -27,5 +27,5 @@ documentos e monta a configuração; você confere e aplica.
 - [ia/INSTRUCOES.md](ia/INSTRUCOES.md) — o que a IA deve fazer (comece por aqui, IA)
 - [ia/PASSO-A-PASSO.md](ia/PASSO-A-PASSO.md) · [ia/PERGUNTAS.md](ia/PERGUNTAS.md) · [ia/DOCUMENTOS.md](ia/DOCUMENTOS.md)
 - [ia/MANIFESTO.md](ia/MANIFESTO.md) · [manifesto/schema.json](manifesto/schema.json) · [manifesto/exemplos/](manifesto/exemplos/)
-- [ia/SERVICOS.md](ia/SERVICOS.md) — a lista nacional de serviços · [ia/ERROS.md](ia/ERROS.md) · [ia/API.md](ia/API.md)
+- [ia/SERVICOS.md](ia/SERVICOS.md) — a lista nacional de serviços · [ia/ERROS.md](ia/ERROS.md) · [ia/API.md](ia/API.md) · [ia/MCP.md](ia/MCP.md)
 - [prompts/](prompts/) — os prompts prontos · [plugins/](plugins/) — o plugin do Claude

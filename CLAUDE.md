@@ -1,8 +1,7 @@
 # CLAUDE.md — Implantar_NotaPlano
 
-## Governança: MAESTRO
-Antes de qualquer ação, leia `fmunizmcorp/maestro:BOOTSTRAP.md` (as 6 Leis: estado em arquivo, verificar antes de dizer pronto,
-1 detalhe = 1 commit, nada se perde, MAESTRO primeiro, não inventar).
+## Como trabalhar aqui
+Estado em arquivo, verificar antes de dizer pronto (mostre a saída do teste), 1 detalhe = 1 commit, não inventar.
 
 ## O que é este repositório
 O kit PÚBLICO que ensina a IA do cliente (ChatGPT, Claude) a implantar o NotaPlano: instruções, perguntas, leitura de documentos,

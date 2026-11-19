@@ -1,7 +1,7 @@
 <!-- GERADO por fmunizmcorp/emissor_nfe (scripts/implantacao-ia/gerar-kit.js) a partir do código do NotaPlano — não edite aqui -->
 # Lista nacional de serviços (código do serviço = `tributacao_nacional`)
 
-Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o NotaPlano completa; com mais de um, informe no perfil (`nbs`). "IBS/CBS": quando a tabela oficial tem uma resposta só, deixe os códigos em branco. "NotaPlano emite?": os marcados "ainda NÃO emite" (obras, eventos e outros com grupos próprios) ainda não saem pelo NotaPlano — avise a pessoa.
+Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o NotaPlano completa; com mais de um, informe no perfil (`nbs`). "IBS/CBS": quando a tabela oficial tem uma resposta só, deixe os códigos em branco; "tratamento especial" (redução, isenção, profissão intelectual) vale só se for o caso da empresa — confirme com o contador. "NotaPlano emite?": os marcados "ainda NÃO emite" (obras, eventos e outros com grupos próprios) ainda não saem pelo NotaPlano — avise a pessoa.
 
 | Código | Serviço | NBS | IBS/CBS | NotaPlano emite? |
 |---|---|---|---|---|
@@ -23,12 +23,12 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 030303 | Exploração de quadras esportivas, estádios, ginásios, canchas e congêneres, para realização de eventos ou negócios de qualquer natureza | 5 opções — informe | depende do NBS | sim |
 | 030304 | Exploração de auditórios, casas de espetáculos e congêneres, para realização de eventos ou negócios de qualquer natureza | 5 opções — informe | depende do NBS | sim |
 | 030305 | Exploração de parques de diversões e congêneres, para realização de eventos ou negócios de qualquer natureza | 5 opções — informe | depende do NBS | sim |
-| 030401 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de ferrovia | 110011210 (único) | tabela oficial (deixe em branco) | sim |
-| 030402 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de rodovia | 110011210 (único) | tabela oficial (deixe em branco) | sim |
-| 030403 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de postes, cabos, dutos e condutos de qualquer natureza | 110011210 (único) | tabela oficial (deixe em branco) | sim |
+| 030401 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de ferrovia | 110011210 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 030402 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de rodovia | 110011210 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 030403 | Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de postes, cabos, dutos e condutos de qualquer natureza | 110011210 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 030501 | Cessão de andaimes, palcos, coberturas e outras estruturas de uso temporário | 2 opções — informe | depende do NBS | sim |
-| 040101 | Medicina | 123012200 (único) | tabela oficial (deixe em branco) | sim |
-| 040102 | Biomedicina | 123012200 (único) | tabela oficial (deixe em branco) | sim |
+| 040101 | Medicina | 123012200 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 040102 | Biomedicina | 123012200 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 040201 | Análises clínicas e congêneres | 2 opções — informe | depende do NBS | sim |
 | 040202 | Patologia e congêneres | 2 opções — informe | depende do NBS | sim |
 | 040203 | Eletricidade médica (eletroestimulação de nervos e musculos, cardioversão, etc) e congêneres | 2 opções — informe | depende do NBS | sim |
@@ -37,29 +37,29 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 040301 | Hospitais e congêneres | 8 opções — informe | depende do NBS | sim |
 | 040302 | Laboratórios e congêneres | 8 opções — informe | depende do NBS | sim |
 | 040303 | Clínicas, sanatórios, manicômios, casas de saúde, prontos-socorros, ambulatórios e congêneres | 8 opções — informe | depende do NBS | sim |
-| 040401 | Instrumentação cirúrgica | 123011100 (único) | tabela oficial (deixe em branco) | sim |
-| 040501 | Acupuntura | 123019900 (único) | tabela oficial (deixe em branco) | sim |
+| 040401 | Instrumentação cirúrgica | 123011100 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 040501 | Acupuntura | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 040601 | Enfermagem, inclusive serviços auxiliares | 2 opções — informe | depende do NBS | sim |
-| 040701 | Serviços farmacêuticos | 123019900 (único) | tabela oficial (deixe em branco) | sim |
+| 040701 | Serviços farmacêuticos | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 040801 | Terapia ocupacional | 2 opções — informe | depende do NBS | sim |
 | 040802 | Fisioterapia | 2 opções — informe | depende do NBS | sim |
 | 040803 | Fonoaudiologia | 2 opções — informe | depende do NBS | sim |
-| 040901 | Terapias de qualquer espécie destinadas ao tratamento físico, orgânico e mental | 123019900 (único) | tabela oficial (deixe em branco) | sim |
-| 041001 | Nutrição | 123019900 (único) | tabela oficial (deixe em branco) | sim |
+| 040901 | Terapias de qualquer espécie destinadas ao tratamento físico, orgânico e mental | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041001 | Nutrição | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 041101 | Obstetrícia | 2 opções — informe | depende do NBS | sim |
-| 041201 | Odontologia | 123012300 (único) | tabela oficial (deixe em branco) | sim |
-| 041301 | Ortóptica | 123019900 (único) | tabela oficial (deixe em branco) | sim |
-| 041401 | Próteses sob encomenda | 123019900 (único) | tabela oficial (deixe em branco) | sim |
-| 041501 | Psicanálise | 123019900 (único) | tabela oficial (deixe em branco) | sim |
-| 041601 | Psicologia | 123019800 (único) | tabela oficial (deixe em branco) | sim |
+| 041201 | Odontologia | 123012300 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041301 | Ortóptica | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041401 | Próteses sob encomenda | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041501 | Psicanálise | 123019900 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041601 | Psicologia | 123019800 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 041701 | Casas de repouso e congêneres | 6 opções — informe | depende do NBS | sim |
 | 041702 | Casas de recuperação e congêneres | 6 opções — informe | depende do NBS | sim |
 | 041703 | Creches e congêneres | 6 opções — informe | depende do NBS | sim |
 | 041704 | Asilos e congêneres | 6 opções — informe | depende do NBS | sim |
-| 041801 | Inseminação artificial, fertilização in vitro e congêneres | 123012100 (único) | tabela oficial (deixe em branco) | sim |
-| 041901 | Bancos de sangue, leite, pele, olhos, óvulos, sêmen e congêneres | 123019500 (único) | tabela oficial (deixe em branco) | sim |
-| 042001 | Coleta de sangue, leite, tecidos, sêmen, órgãos e materiais biológicos de qualquer espécie | 123019500 (único) | tabela oficial (deixe em branco) | sim |
-| 042101 | Unidade de atendimento, assistência ou tratamento móvel e congêneres | 123019600 (único) | tabela oficial (deixe em branco) | sim |
+| 041801 | Inseminação artificial, fertilização in vitro e congêneres | 123012100 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 041901 | Bancos de sangue, leite, pele, olhos, óvulos, sêmen e congêneres | 123019500 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 042001 | Coleta de sangue, leite, tecidos, sêmen, órgãos e materiais biológicos de qualquer espécie | 123019500 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 042101 | Unidade de atendimento, assistência ou tratamento móvel e congêneres | 123019600 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 042201 | Planos de medicina de grupo ou individual e convênios para prestação de assistência médica, hospitalar, odontológica e congêneres | 2 opções — informe | depende do NBS | sim |
 | 042301 | Outros planos de saúde que se cumpram através de serviços de terceiros contratados, credenciados, cooperados ou apenas pagos pelo operador do plano mediante indicação do beneficiário | 2 opções — informe | depende do NBS | sim |
 | 050101 | Medicina veterinária | 3 opções — informe | depende do NBS | sim |
@@ -72,7 +72,7 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 050601 | Coleta de sangue, leite, tecidos, sêmen, órgãos e materiais biológicos de qualquer espécie | 114054000 (único) | tabela oficial (deixe em branco) | sim |
 | 050701 | Unidade de atendimento, assistência ou tratamento móvel e congêneres | 2 opções — informe | depende do NBS | sim |
 | 050801 | Guarda, tratamento, amestramento, embelezamento, alojamento e congêneres | 114056000 (único) | tabela oficial (deixe em branco) | sim |
-| 050901 | Planos de atendimento e assistência médico-veterinária | 114055000 (único) | tabela oficial (deixe em branco) | sim |
+| 050901 | Planos de atendimento e assistência médico-veterinária | 114055000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 820): confirme com o contador | sim |
 | 060101 | Barbearia, cabeleireiros, manicuros, pedicuros e congêneres | 2 opções — informe | depende do NBS | sim |
 | 060201 | Esteticistas, tratamento de pele, depilação e congêneres | 3 opções — informe | depende do NBS | sim |
 | 060301 | Banhos, duchas, sauna, massagens e congêneres | 126023000 (único) | tabela oficial (deixe em branco) | sim |
@@ -122,7 +122,7 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 090104 | Hospedagem em apart-service condominiais, flat, apart-hotéis, hotéis residência, residence-service, suite service e congêneres (o valor da alimentação e gorjeta, quando incluído no preço da diária, fica sujeito ao Imposto Sobre Serviços) | 9 opções — informe | depende do NBS | sim |
 | 090201 | Agenciamento e intermediação de programas de turismo, passeios, viagens, excursões, hospedagens e congêneres | 21 opções — informe | depende do NBS | sim |
 | 090202 | Organização, promoção e execução de programas de turismo, passeios, viagens, excursões, hospedagens e congêneres | 21 opções — informe | depende do NBS | sim |
-| 090301 | Guias de turismo | 118055000 (único) | tabela oficial (deixe em branco) | sim |
+| 090301 | Guias de turismo | 118055000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 100101 | Agenciamento, corretagem ou intermediação de câmbio | 4 opções — informe | depende do NBS | sim |
 | 100102 | Agenciamento, corretagem ou intermediação de seguros | 4 opções — informe | depende do NBS | sim |
 | 100103 | Agenciamento, corretagem ou intermediação de cartões de crédito | 4 opções — informe | depende do NBS | sim |
@@ -286,7 +286,7 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 171801 | Atuária e cálculos técnicos de qualquer natureza | 109063000 (único) | tabela oficial (deixe em branco) | sim |
 | 171901 | Contabilidade, inclusive serviços técnicos e auxiliares | 3 opções — informe | depende do NBS | sim |
 | 172001 | Consultoria e assessoria econômica ou financeira | 4 opções — informe | depende do NBS | sim |
-| 172101 | Estatística | 114150000 (único) | tabela oficial (deixe em branco) | sim |
+| 172101 | Estatística | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 172201 | Cobrança em geral | 118062000 (único) | tabela oficial (deixe em branco) | sim |
 | 172301 | Assessoria, análise, avaliação, atendimento, consulta, cadastro, seleção, gerenciamento de informações, administração de contas a receber ou a pagar e em geral, relacionados a operações de faturização (factoring) | 109080000 (único) | tabela oficial (deixe em branco) | sim |
 | 172401 | Apresentação de palestras, conferências, seminários e congêneres | 122051400 (único) | tabela oficial (deixe em branco) | sim |
@@ -309,7 +309,7 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 250101 | Funerais, inclusive fornecimento de caixão, urna ou esquifes; aluguel de capela; transporte do corpo cadavérico; fornecimento de flores, coroas e outros paramentos; desembaraço de certidão de óbito; fornecimento de véu, essa e outros adornos; embalsamento, embelezamento, conservação ou restauração de cadáveres | 2 opções — informe | depende do NBS | sim |
 | 250201 | Translado intramunicipal de corpos e partes de corpos cadavéricos | 2 opções — informe | depende do NBS | sim |
 | 250202 | Cremação de corpos e partes de corpos cadavéricos | 2 opções — informe | depende do NBS | sim |
-| 250301 | Planos ou convênio funerários | 126030000 (único) | tabela oficial (deixe em branco) | sim |
+| 250301 | Planos ou convênio funerários | 126030000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 820): confirme com o contador | sim |
 | 250401 | Manutenção e conservação de jazigos e cemitérios | 126030000 (único) | tabela oficial (deixe em branco) | sim |
 | 250501 | Cessão de uso de espaços em cemitérios para sepultamento | 126030000 (único) | tabela oficial (deixe em branco) | ainda NÃO emite |
 | 260101 | Serviços de coleta, remessa ou entrega de correspondências, documentos, objetos, bens ou valores, inclusive pelos correios e suas agências franqueadas | 6 opções — informe | depende do NBS | sim |
@@ -317,12 +317,12 @@ Os 330 serviços da lista nacional da NFS-e. "NBS": se o serviço tem um só, o 
 | 270101 | Serviços de assistência social | 5 opções — informe | depende do NBS | sim |
 | 280101 | Serviços de avaliação de bens e serviços de qualquer natureza | 3 opções — informe | depende do NBS | sim |
 | 290101 | Serviços de biblioteconomia | 2 opções — informe | depende do NBS | sim |
-| 300101 | Serviços de biologia e biotecnologia | 114150000 (único) | tabela oficial (deixe em branco) | sim |
-| 300102 | Serviços de química | 114150000 (único) | tabela oficial (deixe em branco) | sim |
-| 310101 | Serviços técnicos em edificações e congêneres | 114150000 (único) | tabela oficial (deixe em branco) | sim |
-| 310102 | Serviços técnicos em eletrônica, eletrotécnica e congêneres | 114150000 (único) | tabela oficial (deixe em branco) | sim |
-| 310103 | Serviços técnicos em mecânica e congêneres | 114150000 (único) | tabela oficial (deixe em branco) | sim |
-| 310104 | Serviços técnicos em telecomunicações e congêneres | 114150000 (único) | tabela oficial (deixe em branco) | sim |
+| 300101 | Serviços de biologia e biotecnologia | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 300102 | Serviços de química | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 310101 | Serviços técnicos em edificações e congêneres | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 310102 | Serviços técnicos em eletrônica, eletrotécnica e congêneres | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 310103 | Serviços técnicos em mecânica e congêneres | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
+| 310104 | Serviços técnicos em telecomunicações e congêneres | 114150000 (único) | tabela oficial (deixe em branco) — **tratamento especial** (CST 200): confirme com o contador | sim |
 | 320101 | Serviços de desenhos técnicos | 114099000 (único) | tabela oficial (deixe em branco) | sim |
 | 330101 | Serviços de desembaraço aduaneiro, comissários, despachantes e congêneres | 2 opções — informe | depende do NBS | sim |
 | 340101 | Serviços de investigações particulares, detetives e congêneres | 118021000 (único) | tabela oficial (deixe em branco) | sim |

@@ -12,9 +12,14 @@ Toda recusa vem como `{"erro": {"codigo", "mensagem", "campo"}}` (na API) ou com
 | `documento_aguardando` | O CNPJ é usado por outra conta do NotaPlano | O responsável pelo CNPJ confirma por e-mail; ou cadastre em homologação e envie o certificado (ele comprova) |
 | `limite_plano` | O plano não comporta mais empresas | Mude o plano em Configurações → Plano |
 | `implantacao_incompleta` | Faltam passos antes da produção | `pendencias` diz quais; veja a situação |
-| `confirmacao` | Produção pede `"confirmo": true` | Pergunte à pessoa; só mande com o "sim" dela |
+| `confirmacao` | Produção (só sistemas com o escopo `emitentes:producao`) pede `"confirmo": true` | A pessoa liga a produção na tela |
 | `certificado_senha` / `certificado_sem_chave` / `certificado_de_outro_cnpj` | Problema no certificado | A pessoa resolve na tela (senha certa; arquivo .pfx com a chave privada; o certificado do próprio CNPJ) |
-| `escopo` | O token não tem permissão | Gere o token de implantação de novo em Implantação com IA → Avançado |
+| `so_na_tela` | E-mails de cópia/alertas, troca de CNPJ, forma de emitir | A pessoa faz na tela da empresa |
+| `numeracao_recuo` | Pela API o próximo número não volta | Se precisar mesmo recuar, a pessoa faz na tela (no manifesto, o número menor só "fica como está") |
+| `unidade` | Alíquota parece fração (0,0065) | Use percentual: 0,65 |
+| `so_homologacao` | O token só emite nota de TESTE | A empresa precisa estar em homologação, com certificado; nota de verdade é pela tela |
+| `certificado_arquivo` / `certificado_ocupado` | Arquivo grande demais ou leitura demorada / muitos certificados ao mesmo tempo | Confira o arquivo .pfx; tente de novo em alguns minutos |
+| `escopo` | O token não tem permissão para isso | Algumas coisas são só na tela (produção, cópias de e-mail); para o resto, gere o token de novo em Implantação com IA → Avançado |
 | `chave_invalida` | Token errado, revogado ou vencido (vale 7 dias) | Gere outro |
 
 ## Recusas da prefeitura na nota de teste

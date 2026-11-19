@@ -167,6 +167,7 @@
           "preferencias": {
             "type": "object",
             "additionalProperties": false,
+            "description": "Os e-mails que recebem cópia das notas e os alertas só se configuram na tela",
             "properties": {
               "email_tomador": {
                 "type": "boolean"
@@ -176,18 +177,6 @@
               },
               "numeracao_compartilhada": {
                 "type": "boolean"
-              },
-              "copias": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "alertas": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
               }
             }
           },

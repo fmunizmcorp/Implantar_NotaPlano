@@ -9,8 +9,17 @@
 Em **Personalizar → Plugins → Adicionar marketplace**, informe `fmunizmcorp/Implantar_NotaPlano` e instale **NotaPlano —
 Implantação**. O Claude passa a saber o passo a passo sem você colar o prompt.
 
-## Claude Code (para quem é técnico)
-Com o token de implantação, o Claude Code chama a API direto — veja [../ia/API.md](../ia/API.md).
+## Claude Code (para quem é técnico) — conector com o token
+Gere o token em Implantação com IA → Avançado e rode no terminal (troque `np_live_…` pelo seu token):
 
-## Conector (em breve)
-O conector oficial do NotaPlano (adicionar a URL e entrar com a sua conta, sem copiar chave) virá com o login seguro (OAuth).
+```bash
+claude mcp add --transport http notaplano https://www.notaplano.com.br/mcp --header "Authorization: Bearer np_live_…"
+```
+
+O Claude passa a ter as ferramentas do NotaPlano ([../ia/MCP.md](../ia/MCP.md)): ver a situação, buscar o serviço, conferir e aplicar o
+manifesto e emitir a nota de teste. O token vale 7 dias; não envia certificado, não emite nota de verdade e não passa para produção
+(isso é você, na tela).
+
+## Conector de um clique (em breve)
+Adicionar a URL no Claude (site, Desktop ou celular) e entrar com a sua conta do NotaPlano, sem copiar token, virá com o login seguro
+(OAuth).
