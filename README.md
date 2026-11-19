@@ -7,7 +7,7 @@ documentos e monta a configuração; você confere e aplica.
 ## Comece aqui
 1. Entre no NotaPlano e abra **Implantação com IA**: https://www.notaplano.com.br/app/implantacao-ia
 2. Copie o prompt (ChatGPT ou Claude) e cole numa conversa nova.
-3. Responda às perguntas e mande o cartão CNPJ e uma nota fiscal antiga, se tiver.
+3. Responda às perguntas e mande o cartão CNPJ e, se tiver, uma nota fiscal antiga com os dados do cliente cobertos.
 4. Cole no NotaPlano o **manifesto** que a IA entregar → **Conferir** (nada é gravado) → **Aplicar**.
 5. Envie o certificado digital na página da empresa, emita a nota de teste e passe para produção (você, na tela).
 
@@ -19,7 +19,7 @@ documentos e monta a configuração; você confere e aplica.
 | **Conector NotaPlano (MCP)** | Claude Code e sistemas, com o token; ChatGPT e Claude "um clique" em breve | `https://www.notaplano.com.br/mcp` — [ia/MCP.md](ia/MCP.md) |
 
 ## Segurança
-- O **certificado digital e a senha dele nunca passam pela IA**: você envia direto na tela do NotaPlano.
+- O **certificado digital e a senha dele não passam pela IA**: você envia direto na tela do NotaPlano. Se a IA pedir, não mande.
 - Este repositório é **só documentação**: nenhum dado de cliente fica aqui.
 - O manifesto tem os dados da sua empresa: **não publique**. Para guardar a sua implantação, use o [modelo-cliente/](modelo-cliente/README.md) num repositório **privado**.
 
