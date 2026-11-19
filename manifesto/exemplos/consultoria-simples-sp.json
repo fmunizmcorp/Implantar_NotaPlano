@@ -1,0 +1,18 @@
+{
+  "versao": 1,
+  "empresas": [
+    {
+      "cnpj": "CNPJ_DA_EMPRESA",
+      "nome": "Consultoria Exemplo",
+      "regime_tributario": "simples",
+      "im": "12345678",
+      "cnae": "6204000",
+      "municipio": "São Paulo/SP",
+      "endereco": { "logradouro": "Avenida Paulista", "numero": "1000", "bairro": "Bela Vista", "cep": "01310100", "cidade": "São Paulo", "uf": "SP" },
+      "numeracao": { "serie": "1", "proximo": 1 }
+    }
+  ],
+  "perfis": [
+    { "nome": "Consultoria em informática", "tributacao_nacional": "010601", "nbs": "115011000", "aliq_iss": 2.9, "retem_iss": false }
+  ]
+}

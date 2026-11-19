@@ -1,0 +1,18 @@
+{
+  "versao": 1,
+  "empresas": [
+    {
+      "cnpj": "CNPJ_DA_EMPRESA",
+      "nome": "Escritório Contábil Exemplo",
+      "regime_tributario": "nao_optante",
+      "im": "0000000000200",
+      "cnae": "6920601",
+      "municipio": "Brasília/DF",
+      "endereco": { "logradouro": "SCS Quadra 1", "numero": "100", "bairro": "Asa Sul", "cep": "70300500", "cidade": "Brasília", "uf": "DF" },
+      "numeracao": { "serie": "1", "proximo": 1 }
+    }
+  ],
+  "perfis": [
+    { "nome": "Contabilidade — empresas", "tributacao_nacional": "171901", "nbs": "113022100", "aliq_iss": 5, "retem_iss": false }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "versao": 1,
+  "empresas": [
+    {
+      "cnpj": "CNPJ_DA_EMPRESA",
+      "nome": "Fulano Serviços",
+      "regime_tributario": "mei",
+      "cnae": "9602501",
+      "municipio": "Goiânia/GO",
+      "endereco": { "logradouro": "Rua Exemplo", "numero": "1", "bairro": "Centro", "cep": "74003010", "cidade": "Goiânia", "uf": "GO" },
+      "modo_emissao": "portal"
+    }
+  ],
+  "perfis": [
+    { "nome": "Serviço — pessoa física", "tributacao_nacional": "060101", "nbs": "126021000", "aliq_iss": 2, "padrao_pf": true }
+  ]
+}
