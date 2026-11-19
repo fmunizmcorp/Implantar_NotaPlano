@@ -19,8 +19,8 @@
 10b. Sua empresa tem algum **regime especial** de ISS (cooperativa, sociedade de profissionais, ISS fixo, estimativa)? Na dúvida, "Nenhum" — confirme com o contador.
 
 ## Sobre os impostos (perfil fiscal)
-11. Tem uma **nota antiga já aceita** de cada tipo de cliente? Mande o XML ou o PDF: eu tiro dela o código do serviço, o ISS e as
-    retenções.
+11. Tem uma **nota antiga já aceita** de cada tipo de cliente? Mande o XML ou o PDF, **com os dados do cliente cobertos** (nome,
+    CPF/CNPJ, endereço, e-mail): eu tiro dela o código do serviço, o ISS e as retenções.
 12. Sem nota antiga: qual a **alíquota do ISS**? O cliente empresa **retém** ISS ou impostos federais? (Na dúvida, contador.)
 13. Tem os percentuais dos **tributos aproximados** (IBPT) do seu serviço?
 

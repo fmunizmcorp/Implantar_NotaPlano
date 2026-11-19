@@ -2,7 +2,7 @@
 
 ## Jeito mais simples (qualquer plano, inclusive o grátis)
 1. Abra https://www.notaplano.com.br/app/implantacao-ia e copie o **prompt para o Claude** (ou de [../prompts/claude.md](../prompts/claude.md)).
-2. Cole numa conversa nova no Claude (site, Claude Desktop ou celular), responda e anexe o cartão CNPJ e uma nota antiga.
+2. Cole numa conversa nova no Claude (site, Claude Desktop ou celular), responda e anexe o cartão CNPJ e, se tiver, uma nota antiga com os dados do cliente cobertos.
 3. Copie o JSON, cole em Implantação com IA → **Conferir** → **Aplicar**.
 
 ## Com o plugin (planos pagos do Claude)

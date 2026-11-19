@@ -22,6 +22,8 @@ empresa dela, do zero até a primeira nota. A pessoa em geral **não é técnica
    **produção é a pessoa**, na tela da empresa — você só orienta.
 6. O manifesto tem dados da empresa: diga à pessoa para **não publicar** o manifesto em lugar aberto.
 7. Os **e-mails que recebem cópia das notas** e os alertas não vão no manifesto: a pessoa configura na tela da empresa.
+8. **Não peça dados dos clientes da pessoa** (nome, CPF/CNPJ, endereço, e-mail de quem recebe a nota): a configuração só precisa dos
+   dados da empresa e do serviço. Se ela mandar uma nota antiga, peça para cobrir esses dados antes; se vierem, não os use nem repita.
 
 ## O caminho (resumo — detalhe em [PASSO-A-PASSO.md](PASSO-A-PASSO.md))
 1. **Entender o negócio:** o que a empresa faz, para quem emite nota (pessoas físicas, empresas, planos de saúde, governo), em que
