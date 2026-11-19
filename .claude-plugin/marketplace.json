@@ -1,0 +1,13 @@
+{
+  "name": "notaplano",
+  "owner": {
+    "name": "NotaPlano"
+  },
+  "plugins": [
+    {
+      "name": "notaplano-implantacao",
+      "source": "./plugins/notaplano-implantacao",
+      "description": "Implantação do NotaPlano (NFS-e) guiada pela IA: perguntas, leitura de documentos e o manifesto de implantação."
+    }
+  ]
+}

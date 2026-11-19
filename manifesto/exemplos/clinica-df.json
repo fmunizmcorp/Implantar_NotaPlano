@@ -1,0 +1,23 @@
+{
+  "versao": 1,
+  "empresas": [
+    {
+      "cnpj": "CNPJ_DA_EMPRESA",
+      "nome": "Clínica Exemplo",
+      "razao_social": "CLINICA EXEMPLO LTDA",
+      "regime_tributario": "nao_optante",
+      "im": "0000000000100",
+      "cnae": "8630503",
+      "municipio": "Brasília/DF",
+      "endereco": { "logradouro": "SQS 100 Bloco A", "numero": "10", "bairro": "Asa Sul", "cep": "70330000", "cidade": "Brasília", "uf": "DF" },
+      "email_contato": "financeiro@empresa.example",
+      "modo_emissao": "a1",
+      "preferencias": { "email_tomador": true },
+      "numeracao": { "serie": "1", "proximo": 1 }
+    }
+  ],
+  "perfis": [
+    { "nome": "Consulta — pessoa física", "tributacao_nacional": "040101", "aliq_iss": 2, "retem_iss": false, "padrao_pf": true },
+    { "nome": "Consulta — convênio (com retenções)", "tributacao_nacional": "040101", "aliq_iss": 2, "retem_iss": true, "retem_pis": true, "aliq_pis": 0.65, "retem_cofins": true, "aliq_cofins": 3, "retem_csll": true, "aliq_csll": 1, "retem_irrf": true, "aliq_irrf": 1.5 }
+  ]
+}

@@ -1,0 +1,566 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.notaplano.com.br/api/implantacao.schema.json",
+  "title": "Manifesto de implantação do NotaPlano",
+  "description": "O que a IA monta com o cliente; o cliente cola em Implantação com IA (Conferir → Aplicar) ou o sistema dele manda por POST /api/v1/implantacao. Alíquotas em percentual (2 = 2%). Nunca leva o certificado nem a senha.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "versao": {
+      "const": 1
+    },
+    "empresas": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cnpj"
+        ],
+        "properties": {
+          "nome": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "razao_social": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cnpj": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "im": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ie": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cnae": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cnaes_secundarios": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ctrib_mun": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "regime_tributario": {
+            "type": "string",
+            "enum": [
+              "nao_optante",
+              "mei",
+              "simples"
+            ],
+            "description": "Obrigatório na empresa nova"
+          },
+          "regime_especial": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cst_pis_cofins": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "prefeitura_ibge": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "municipio": {
+            "type": "string",
+            "description": "Cidade/UF, ex.: Brasília/DF (ou prefeitura_ibge com 7 dígitos)"
+          },
+          "endereco": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "logradouro": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "numero": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "complemento": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bairro": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cep": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cidade": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "uf": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "email_contato": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "texto_padrao_discriminacao": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "texto_procon": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "preferencias": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Os e-mails que recebem cópia das notas e os alertas só se configuram na tela",
+            "properties": {
+              "email_tomador": {
+                "type": "boolean"
+              },
+              "whatsapp_tomador": {
+                "type": "boolean"
+              },
+              "numeracao_compartilhada": {
+                "type": "boolean"
+              }
+            }
+          },
+          "crt": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ],
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              1,
+              2,
+              3,
+              4,
+              null
+            ]
+          },
+          "simples": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "atividade": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "regime_ibscbs": {
+                "type": [
+                  "number",
+                  "string",
+                  "null"
+                ]
+              },
+              "regime_apuracao": {
+                "type": [
+                  "number",
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "condominio_edilicio": {
+            "type": "boolean"
+          },
+          "ambiente": {
+            "type": "string",
+            "enum": [
+              "homologacao"
+            ],
+            "description": "Toda empresa nova nasce em homologação; produção é depois da nota de teste"
+          },
+          "modo_emissao": {
+            "type": "string",
+            "enum": [
+              "a1",
+              "portal"
+            ],
+            "description": "a1 = com certificado digital (o NotaPlano envia); portal = sem certificado (emite no site oficial)"
+          },
+          "numeracao": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "serie",
+              "proximo"
+            ],
+            "properties": {
+              "tipo": {
+                "type": "string",
+                "enum": [
+                  "dps",
+                  "rps",
+                  "nfe"
+                ]
+              },
+              "serie": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "proximo": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "O PRÓXIMO número (quem já emitia: o último + 1)"
+              },
+              "faixa_inicio": {
+                "type": [
+                  "number",
+                  "string",
+                  "null"
+                ]
+              },
+              "faixa_fim": {
+                "type": [
+                  "number",
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "perfis": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "nome"
+        ],
+        "properties": {
+          "nome": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tributacao_nacional": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nbs": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ctrib_mun": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "atividade_municipal": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "item_lista": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "indicador_operacao": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "situacao_tributaria": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "classificacao_tributaria": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fonte_trib_aproximados": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "discriminacao_modelo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "informacoes_complementares_modelo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "padrao_pf": {
+            "type": "boolean"
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "retem_iss": {
+            "type": "boolean"
+          },
+          "retem_pis": {
+            "type": "boolean"
+          },
+          "retem_cofins": {
+            "type": "boolean"
+          },
+          "retem_csll": {
+            "type": "boolean"
+          },
+          "retem_irrf": {
+            "type": "boolean"
+          },
+          "retem_cp": {
+            "type": "boolean"
+          },
+          "aliq_iss": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_pis": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_cofins": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_csll": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_irrf": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_cp": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "trib_aprox_federal": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "trib_aprox_estadual": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "trib_aprox_municipal": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_cbs": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "reducao_cbs": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_ibs_estadual": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "reducao_ibs_estadual": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "aliq_ibs_municipal": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "reducao_ibs_municipal": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "desc_cond_padrao": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "desc_incond_padrao": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "deducao_padrao": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ],
+            "description": "Percentual: 2 = 2%"
+          },
+          "desc_cond_padrao_tipo": {
+            "type": "string",
+            "enum": [
+              "valor",
+              "percentual"
+            ]
+          },
+          "desc_incond_padrao_tipo": {
+            "type": "string",
+            "enum": [
+              "valor",
+              "percentual"
+            ]
+          },
+          "deducao_padrao_tipo": {
+            "type": "string",
+            "enum": [
+              "valor",
+              "percentual"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

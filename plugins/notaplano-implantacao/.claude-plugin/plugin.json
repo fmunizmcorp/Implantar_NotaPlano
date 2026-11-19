@@ -1,0 +1,6 @@
+{
+  "name": "notaplano-implantacao",
+  "description": "Configura o NotaPlano (emissor de NFS-e) do zero até a primeira nota, com o manifesto de implantação.",
+  "version": "1.0.0",
+  "homepage": "https://www.notaplano.com.br"
+}

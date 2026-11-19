@@ -1,0 +1,15 @@
+{
+  "versao": 1,
+  "empresas": [
+    {
+      "cnpj": "CNPJ_DA_EMPRESA",
+      "nome": "Condomínio Exemplo",
+      "regime_tributario": "nao_optante",
+      "im": "0000000000300",
+      "municipio": "Brasília/DF",
+      "endereco": { "logradouro": "SQN 200 Bloco B", "numero": "1", "bairro": "Asa Norte", "cep": "70832020", "cidade": "Brasília", "uf": "DF" },
+      "condominio_edilicio": true,
+      "numeracao": { "serie": "1", "proximo": 1 }
+    }
+  ]
+}
