@@ -54,5 +54,5 @@ https://www.notaplano.com.br/api/implantacao.schema.json — exemplos prontos em
 | `indicador_operacao`, `situacao_tributaria`, `classificacao_tributaria` | IBS/CBS — em branco quando a tabela oficial tem uma resposta só |
 | `trib_aprox_federal`, `trib_aprox_estadual`, `trib_aprox_municipal`, `fonte_trib_aproximados` | Tributos aproximados (IBPT) |
 | `discriminacao_modelo` | Modelo da descrição (sem dados de cliente) |
-| `padrao_pf` | `true` no perfil de pessoa física padrão (só um) |
+| `padrao_pf` | `true` no perfil de pessoa física padrão (só um). Pelo token, só na implantação do zero (conta sem padrão e sem empresa em produção); depois disso, marcar, religar ou mudar o padrão é na tela |
 | `ativo` | `false` para desativar um perfil existente |
