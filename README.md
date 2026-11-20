@@ -1,13 +1,13 @@
 # Implantar o NotaPlano com a sua IA
 
 O **NotaPlano** (https://www.notaplano.com.br) emite nota fiscal de serviço (NFS-e). Este repositório ensina a **sua IA** — ChatGPT
-ou Claude, inclusive as versões grátis — a configurar o NotaPlano da sua empresa em minutos: ela faz as perguntas, lê os seus
-documentos e monta a configuração; você confere e aplica.
+ou Claude, inclusive as versões grátis — a configurar o NotaPlano da sua empresa (com o certificado A1 em mãos, a configuração em poucos
+minutos): ela faz as perguntas, lê os seus documentos e monta a configuração; você confere e aplica.
 
 ## Comece aqui
 1. Entre no NotaPlano e abra **Implantação com IA**: https://www.notaplano.com.br/app/implantacao-ia
 2. Copie o prompt (ChatGPT ou Claude) e cole numa conversa nova.
-3. Responda às perguntas e mande o cartão CNPJ e, se tiver, uma nota fiscal antiga com os dados do cliente cobertos.
+3. Responda às perguntas e mande o cartão CNPJ e, se tiver, uma nota fiscal antiga com os dados do cliente cobertos — e a descrição, se ela citar pessoas.
 4. Cole no NotaPlano o **manifesto** que a IA entregar → **Conferir** (nada é gravado) → **Aplicar**.
 5. Envie o certificado digital na página da empresa, emita a nota de teste e passe para produção (você, na tela).
 
@@ -16,7 +16,7 @@ documentos e monta a configuração; você confere e aplica.
 |---|---|---|
 | **Manifesto colado na tela** | todo mundo, qualquer IA | o prompt + Conferir/Aplicar ([chatgpt/](chatgpt/COMO-USAR.md), [claude/](claude/COMO-USAR.md)) |
 | **A IA aplica pela API** | quem usa Claude Code ou tem sistema próprio | token de implantação (vale 7 dias; configura e emite só nota de teste) — [ia/API.md](ia/API.md) |
-| **Conector NotaPlano (MCP)** | Claude Code e sistemas, com o token; ChatGPT e Claude "um clique" em breve | `https://www.notaplano.com.br/mcp` — [ia/MCP.md](ia/MCP.md) |
+| **Conector NotaPlano (MCP)** | Claude e ChatGPT "um clique" (entra com a conta, sem token); Claude Code e sistemas, com o token | um clique: `https://app.notaplano.com.br/mcp`; com o token: `https://www.notaplano.com.br/mcp` — [ia/MCP.md](ia/MCP.md) |
 
 ## Segurança
 - O **certificado digital e a senha dele não passam pela IA**: você envia direto na tela do NotaPlano. Se a IA pedir, não mande.

@@ -54,7 +54,7 @@ Resposta (exemplo):
 ```
 
 ### POST /notas
-Cria a nota (calcula e confere; não envia). Com notas:emitir_teste, só em empresa em homologação. Tomador: `tomador_id` (cadastrado) e/ou `tomador` (dados). Com os dois, o que vier preenchido em `tomador` completa/corrige o cadastrado para esta nota e atualiza o cadastro (modo completo; `salvar_tomador: false` só a nota); documento diferente do cadastrado → 422 `tomador_documento_diverge`. NFS-e do condomínio (99.05.01): o grupo `condominio` (ver a seção da documentação) no lugar de `valor_servicos`.
+Cria a nota (calcula e confere; não envia). Com notas:emitir_teste, só em empresa em homologação; a chave sem outro escopo de notas (o token de implantação) não usa o modelo de descrição guardado no cofre (perfil migrado): sem `descricao` e com o modelo do perfil cifrado, a nota de teste sai com "NOTA DE TESTE (homologação, sem valor fiscal)" (perfil com modelo em claro: o modelo; sem modelo: o texto padrão da empresa). Tomador: `tomador_id` (cadastrado) e/ou `tomador` (dados). Com os dois, o que vier preenchido em `tomador` completa/corrige o cadastrado para esta nota e atualiza o cadastro (modo completo; `salvar_tomador: false` só a nota); documento diferente do cadastrado → 422 `tomador_documento_diverge`. NFS-e do condomínio (99.05.01): o grupo `condominio` (ver a seção da documentação) no lugar de `valor_servicos`.
 
 Escopo: `notas:emitir`
 
