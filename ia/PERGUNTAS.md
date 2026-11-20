@@ -20,7 +20,7 @@
 
 ## Sobre os impostos (perfil fiscal)
 11. Tem uma **nota antiga já aceita** de cada tipo de cliente? Mande o XML ou o PDF, **com os dados do cliente cobertos** (nome,
-    CPF/CNPJ, endereço, e-mail): eu tiro dela o código do serviço, o ISS e as retenções.
+    CPF/CNPJ, endereço, e-mail) — e a descrição, se ela citar pessoas: eu tiro dela o código do serviço, o ISS e as retenções.
 12. Sem nota antiga: qual a **alíquota do ISS**? O cliente empresa **retém** ISS ou impostos federais? (Na dúvida, contador.)
 13. Tem os percentuais dos **tributos aproximados** (IBPT) do seu serviço?
 

@@ -18,7 +18,7 @@ Simples Nacional, na consulta do Simples (o contador sabe).
 
 ## Nota fiscal de serviço antiga (XML ou PDF) — a melhor fonte para o perfil fiscal
 Use uma nota **aceita** pela prefeitura, do mesmo tipo de cliente do perfil (ex.: uma de pessoa física, outra de convênio). **Antes, peça à pessoa
-para apagar ou cobrir os dados do cliente** (nome, CPF/CNPJ, endereço, e-mail): a configuração só precisa dos campos do serviço e dos
+para apagar ou cobrir os dados do cliente** (nome, CPF/CNPJ, endereço, e-mail) — e a descrição, se ela citar pessoas: a configuração só precisa dos campos do serviço e dos
 impostos. Se vierem dados de cliente, não os use, não os repita e não os ponha no manifesto.
 
 | Na nota (XML do padrão nacional) | O que é | No manifesto |

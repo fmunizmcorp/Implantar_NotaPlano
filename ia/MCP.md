@@ -3,7 +3,12 @@
 
 - Endereço: `https://www.notaplano.com.br/mcp` (Streamable HTTP, JSON-RPC). `initialize` e `tools/list` sem login; as ferramentas pedem `Authorization: Bearer np_live_…` (o token de implantação, 7 dias). Cada ferramenta chama a API do NotaPlano com o mesmo token — os mesmos escopos e a mesma auditoria.
 - Claude Code: `claude mcp add --transport http notaplano https://www.notaplano.com.br/mcp --header "Authorization: Bearer np_live_…"`
-- Conector de um clique (login com a conta, sem token) no Claude e no ChatGPT: em breve.
+- **Conector de um clique (login com a conta, sem token)** — OAuth 2.1 com PKCE e registro dinâmico; o endereço é o do aplicativo: `https://app.notaplano.com.br/mcp`.
+  - **Claude** (claude.ai, aplicativo do computador ou do celular): Personalizar → Conectores → Adicionar conector personalizado (*Customize → Connectors → Add custom connector*), cole `https://app.notaplano.com.br/mcp`, clique em Adicionar e depois em Conectar. Funciona até no plano grátis (1 conector).
+  - **ChatGPT**: Configurações → Aplicativos e conectores → ligue o **modo desenvolvedor** e crie um conector com `https://app.notaplano.com.br/mcp` e autenticação **OAuth**. Ressalva: hoje o ChatGPT só deixa um conector desses **gravar** (aplicar o manifesto, emitir a nota de teste) nos planos **Business e Enterprise/Edu**, criado pelo administrador do workspace; nos outros planos, siga pelo manifesto colado na tela.
+  - Abre a página do NotaPlano: a pessoa entra, confere o aplicativo, o endereço de volta, a empresa e o que a IA pode e não pode, digita a senha e clica em **Permitir**. Só administrador ou dono da empresa, com o módulo API ligado.
+  - O acesso é o MESMO do token de implantação (escopos `config:ler`, `config:escrever`, `notas:emitir_teste`), vale 7 dias e aparece em Configurações → Integrações como "IA (conector): …" (revogável lá). Vencido ou revogado, o /mcp responde 401 e a IA pede para conectar de novo.
+  - Descoberta: `https://app.notaplano.com.br/.well-known/oauth-protected-resource/mcp` e `https://app.notaplano.com.br/.well-known/oauth-authorization-server`.
 - Nenhuma ferramenta envia certificado. Confirme com a pessoa antes de aplicar o manifesto e antes de passar para produção.
 
 ## Ferramentas
