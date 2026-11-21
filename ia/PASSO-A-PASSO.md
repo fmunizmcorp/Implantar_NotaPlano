@@ -11,6 +11,7 @@
 | 7 | Testar a conexão com a prefeitura | a empresa → **Testar conexão** | `POST /api/v1/emitentes/{id}/testar` |
 | 8 | Nota de TESTE (homologação, sem valor fiscal) | **Emitir nota** com a empresa em homologação | `POST /api/v1/notas` e `POST /api/v1/notas/{id}/emitir` |
 | 9 | Passar para PRODUÇÃO (notas de verdade) | a empresa → ambiente **Produção** → Salvar (a pessoa faz) | não pelo token da IA (só um sistema com o escopo `emitentes:producao`, com `{"confirmo": true}`) |
+| 10 | (opcional) Importar clientes empresa, notas recorrentes e modelos de nota | a pessoa cola o JSON em Implantação com IA → **Importações para conferir**, confere e **Aplica** | `POST /api/v1/importacoes/simular` e `POST /api/v1/importacoes` (fica pendente; quem aplica é a pessoa, na tela) |
 
 ## Detalhes
 - **Sem certificado?** A empresa pode emitir "sem certificado" (`modo_emissao: "portal"`): o NotaPlano prepara cada campo e a

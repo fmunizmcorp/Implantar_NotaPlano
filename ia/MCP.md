@@ -7,7 +7,7 @@
   - **Claude** (claude.ai, aplicativo do computador ou do celular): Personalizar → Conectores → Adicionar conector personalizado (*Customize → Connectors → Add custom connector*), cole `https://app.notaplano.com.br/mcp`, clique em Adicionar e depois em Conectar. Funciona até no plano grátis (1 conector).
   - **ChatGPT**: Configurações → Aplicativos e conectores → ligue o **modo desenvolvedor** e crie um conector com `https://app.notaplano.com.br/mcp` e autenticação **OAuth**. Ressalva: hoje o ChatGPT só deixa um conector desses **gravar** (aplicar o manifesto, emitir a nota de teste) nos planos **Business e Enterprise/Edu**, criado pelo administrador do workspace; nos outros planos, siga pelo manifesto colado na tela.
   - Abre a página do NotaPlano: a pessoa entra, confere o aplicativo, o endereço de volta, a empresa e o que a IA pode e não pode, digita a senha e clica em **Permitir**. Só administrador ou dono da empresa, com o módulo API ligado.
-  - O acesso é o MESMO do token de implantação (escopos `config:ler`, `config:escrever`, `notas:emitir_teste`), vale 7 dias e aparece em Configurações → Integrações como "IA (conector): …" (revogável lá). Vencido ou revogado, o /mcp responde 401 e a IA pede para conectar de novo.
+  - O acesso é o MESMO do token de implantação (escopos `config:ler`, `config:escrever`, `notas:emitir_teste`, `importacoes:propor`), vale 7 dias e aparece em Configurações → Integrações como "IA (conector): …" (revogável lá). Vencido ou revogado, o /mcp responde 401 e a IA pede para conectar de novo.
   - Descoberta: `https://app.notaplano.com.br/.well-known/oauth-protected-resource/mcp` e `https://app.notaplano.com.br/.well-known/oauth-authorization-server`.
 - Nenhuma ferramenta envia certificado. Confirme com a pessoa antes de aplicar o manifesto e antes de passar para produção.
 
@@ -41,6 +41,21 @@ Só leitura. Argumentos: `manifesto` (obrigatório) — O manifesto: {"versao": 
 Aplica o manifesto de implantação: confere tudo antes (com erro, nada é gravado) e grava empresas (novas em HOMOLOGAÇÃO), numeração e perfis. Aplicar de novo altera, não duplica. Mostre o resumo à pessoa e aplique só com o "sim" dela.
 
 Grava (confirme antes). Argumentos: `manifesto` (obrigatório) — O manifesto conferido.
+
+### conferir_importacao — Conferir uma importação (não grava)
+Confere, sem gravar, uma importação de clientes, notas recorrentes ou modelos de nota, com as mesmas regras da tela do NotaPlano. Volta quantas linhas entrariam e os erros pelo número da linha. Clientes: só empresa (CNPJ) — os campos documento, nome, razao_social, im, email (use o do setor, ex.: financeiro@), telefone, cep, logradouro, numero, complemento, bairro, cidade, uf, codigo_municipio e perfil (o nome de um perfil fiscal que já existe). Recorrências: nome, emitente_id ou emitente_cnpj, tomador {documento (CNPJ), razao_social}, perfil, valor, dia (1 a 28), inicio, fim, acao (rascunho, emitir ou cobrar_antes), descricao, reajuste_pct (em PERCENTUAL: 4,5 = 4,5%) e reajuste_mes. Modelos: nome, emitente, perfil, tomador (opcional), valor_servicos, descricao, informacoes_complementares.
+
+Só leitura. Argumentos: `tipo` (obrigatório) — O que importar; `itens` (obrigatório) — As linhas (até 500 clientes, 200 recorrências ou 100 modelos).
+
+### propor_importacao — Propor a importação (a pessoa aplica na tela)
+Deixa a importação PRONTA para a pessoa conferir: nada entra no cadastro até ela abrir o link "tela" (Implantação com IA → Importações para conferir), ver linha a linha o que entra e o que muda e clicar em Aplicar. As recorrências entram DESLIGADAS (ela liga cada uma na tela). Confira antes com conferir_importacao e proponha só com o "sim" da pessoa. Depois diga a ela: "deixei a importação pronta; abra Implantação com IA → Importações para conferir e clique em Aplicar". Vence em 7 dias.
+
+Grava (confirme antes). Argumentos: `tipo` (obrigatório) — O que importar; `itens` (obrigatório) — As linhas conferidas.
+
+### ver_importacao — Ver uma importação proposta
+A situação de uma importação proposta: pendente (esperando a pessoa), aplicada (só o total de linhas processadas — o que entrou, a pessoa vê na tela), descartada ou vencida.
+
+Só leitura. Argumentos: `importacao_id` (obrigatório) — A importação (importacao_id de propor_importacao).
 
 ### emitir_nota_teste — Emitir a nota de TESTE (homologação)
 Cria e emite uma nota de TESTE, sem valor fiscal, numa empresa que ainda está em HOMOLOGAÇÃO (recusa se a empresa já estiver em produção). Precisa do certificado já enviado na tela. Tomador: os dados em tomador {documento, nome, email, cep, logradouro, numero, bairro, cidade, uf} — use um tomador de teste (a empresa ou alguém que concorde); o cadastro de clientes não é usado, e a nota de teste não vai por e-mail.

@@ -26,3 +26,15 @@ Toda recusa vem como `{"erro": {"codigo", "mensagem", "campo"}}` (na API) ou com
 O NotaPlano explica cada código oficial da prefeitura na própria nota (o que é, o que fazer, quem resolve). Os mais comuns na
 implantação: número repetido (numeração), código do serviço não liberado no cadastro da empresa na prefeitura, alíquota diferente da
 cadastrada. Leve a explicação para a conversa e ajuste o perfil ou a numeração.
+
+## Erros da importação (clientes, notas recorrentes, modelos de nota)
+| Código | O que é | O que fazer |
+|---|---|---|
+| `so_na_tela` | Um campo que a IA não manda (os e-mails de aviso da recorrência) | Tire o campo: a pessoa põe na tela, ao conferir |
+| `tomador_junto` | A recorrência veio com `tomador_documento`/`tomador_id` | Mande o cliente junto em `tomador` (CNPJ e nome): você não lê o cadastro dela |
+| `lote_grande` | Mais de 500 clientes, 200 recorrências ou 100 modelos | Divida em partes |
+| `valor_invalido` | Valor ambíguo ou com casas demais | Use 1500.5, "1500.50" ou "1.500,50" |
+| `conta` | O módulo de clientes ou de recorrências está desligado, ou a conta está no modo "só emitir e sair" | A pessoa liga em Configurações → Módulos (na tela) |
+| `nada_para_propor` | Nenhuma linha pode entrar | Corrija as linhas recusadas (veja `recusas`) e proponha de novo |
+| `muitas_pendentes` | Já há 20 importações esperando a pessoa | Peça para ela aplicar ou descartar as que estão em Importações para conferir |
+| linha recusada "pessoa física (CPF)" | Cliente pessoa física não vai pela IA (Termos, item 1.12) | Tire a linha; a pessoa importa na tela (Tomadores → Importar) |
