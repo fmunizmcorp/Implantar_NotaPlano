@@ -2,10 +2,11 @@
 # API de configuração do NotaPlano (para a IA que chama APIs)
 
 - Endereço: `https://www.notaplano.com.br/api/v1` · documentação completa: https://www.notaplano.com.br/api/docs · OpenAPI: https://www.notaplano.com.br/api/openapi.json
-- Autenticação: `Authorization: Bearer np_live_…` — o **token de implantação** que a pessoa gera em Implantação com IA → Avançado (vale 7 dias; escopos: `config:ler`, `config:escrever`, `notas:emitir_teste`). Ele **não** envia certificado.
+- Autenticação: `Authorization: Bearer np_live_…` — o **token de implantação** que a pessoa gera em Implantação com IA → Avançado (vale 7 dias; escopos: `config:ler`, `config:escrever`, `notas:emitir_teste`, `importacoes:propor`). Ele **não** envia certificado.
 - Corpo em JSON (`Content-Type: application/json`). Erros: `{"erro": {"codigo", "mensagem", "campo"}}` — veja [ERROS.md](ERROS.md).
 - Alíquotas em PERCENTUAL (2 = 2%) nas rotas de configuração. Campo desconhecido é recusado.
 - Ordem: `GET /implantacao/situacao` → `POST /implantacao/simular` → `POST /implantacao` → (certificado na tela) → nota de teste → `POST /emitentes/{id}/producao` com `{"confirmo": true}` só depois do "sim" da pessoa.
+- Importação (opcional): `POST /importacoes/simular` → `POST /importacoes` (fica PENDENTE: a pessoa confere e aplica na tela) → `GET /importacoes/{id}`.
 
 ## Escopos
 - `notas:ler` — Ler notas, XML e DANFSe; acompanhar lotes
@@ -16,6 +17,7 @@
 - `certificados:escrever` — Enviar o certificado digital A1 (.pfx em base64 + senha), guardado cifrado como na tela. Dê este escopo só ao sistema da empresa — nunca a uma IA
 - `emitentes:producao` — Passar uma empresa emissora de HOMOLOGAÇÃO para PRODUÇÃO (as notas passam a valer), só com a nota de teste autorizada e "confirmo": true; voltar para homologação ou desativar uma empresa em produção
 - `notas:emitir_teste` — Criar e emitir nota de TESTE só em empresa emissora em HOMOLOGAÇÃO (sem valor fiscal) — o escopo do token de implantação; nunca emite de verdade
+- `importacoes:propor` — Propor importações de clientes (só empresa/CNPJ), notas recorrentes e modelos de nota para a pessoa conferir linha a linha e aplicar na tela — não lê a lista de clientes nem aplica nada; recorrências entram desligadas (o escopo do token de implantação)
 
 ## Rotas
 ### GET /eu
@@ -296,6 +298,101 @@ Resposta (exemplo):
     }
   ],
   "avisos": []
+}
+```
+
+### POST /importacoes/simular
+Confere uma importação SEM gravar: tipo "clientes" (até 500; os campos da tela Tomadores → Importar: documento, nome, razao_social, im, email, telefone, endereço, codigo_municipio, perfil pelo nome — só empresa/CNPJ), "recorrencias" (até 200: nome, emitente_id ou emitente_cnpj, tomador {CNPJ e nome}, perfil, valor, dia de 1 a 28, inicio, fim, acao, cobrar, competencia_regra, vencimento_dias, reajuste_pct em PERCENTUAL — 4,5 = 4,5%; 0,045 é recusado — e reajuste_mes) ou "modelos" (até 100: nome, emitente, perfil, tomador opcional, valor_servicos, referencia, descricao, modo_descricao, informacoes_complementares). As mesmas regras da tela. Volta só contagens e os erros pelo número da linha (nada sobre clientes já cadastrados). 30 conferências ou propostas a cada 10 min por empresa
+
+Escopo: `importacoes:propor`
+
+Corpo (exemplo):
+```json
+{
+  "tipo": "clientes",
+  "itens": [
+    {
+      "documento": "CPF_OU_CNPJ",
+      "razao_social": "OPERADORA EXEMPLO S.A.",
+      "email": "contato@empresa.example",
+      "uf": "DF",
+      "perfil": "Consulta — convênio"
+    }
+  ]
+}
+```
+
+Resposta (exemplo):
+```json
+{
+  "simulacao": true,
+  "tipo": "clientes",
+  "linhas": 1,
+  "aceitas": 1,
+  "recusadas": 0,
+  "recusas": []
+}
+```
+
+### POST /importacoes
+Propõe a importação: confere como o /simular e guarda uma importação PENDENTE (itens cifrados, vence em 7 dias). Nada entra no cadastro até a pessoa abrir o link "tela" (Implantação com IA → Importações para conferir), ver linha a linha o que entra, o que muda (antes → depois; e-mail e telefone destacados — num cliente que já existe só mudam se ela marcar a linha) e clicar em Aplicar. Recorrências entram DESLIGADAS. 422 nada_para_propor se nenhuma linha pode entrar; 409 muitas_pendentes com 20 esperando
+
+Escopo: `importacoes:propor`
+
+Corpo (exemplo):
+```json
+{
+  "tipo": "recorrencias",
+  "itens": [
+    {
+      "nome": "Contrato mensal — Operadora Exemplo",
+      "emitente_cnpj": "CNPJ_DA_EMPRESA",
+      "tomador": {
+        "documento": "CPF_OU_CNPJ",
+        "razao_social": "OPERADORA EXEMPLO S.A."
+      },
+      "perfil": "Consulta — convênio",
+      "valor": 1500,
+      "dia": 5,
+      "acao": "rascunho",
+      "descricao": "Serviços de {mes_extenso}/{ano}"
+    }
+  ]
+}
+```
+
+Resposta (exemplo):
+```json
+{
+  "importacao_id": "uuid",
+  "tipo": "recorrencias",
+  "status": "pendente",
+  "vence_em": "2026-11-28T12:00:00.000Z",
+  "linhas": 1,
+  "aceitas": 1,
+  "recusadas": 0,
+  "recusas": [],
+  "tela": "https://app.notaplano.com.br/app/implantacao-ia/importacoes/uuid"
+}
+```
+
+### GET /importacoes/{id}
+Situação de uma importação proposta: pendente, aplicada (só o total de linhas processadas — o que entrou, a pessoa vê na tela), descartada ou vencida
+
+Escopo: `importacoes:propor`
+
+Resposta (exemplo):
+```json
+{
+  "importacao_id": "uuid",
+  "tipo": "clientes",
+  "status": "aplicada",
+  "linhas": 10,
+  "aceitas": 9,
+  "recusadas": 1,
+  "aplicacao": {
+    "linhas_processadas": 9
+  }
 }
 ```
 

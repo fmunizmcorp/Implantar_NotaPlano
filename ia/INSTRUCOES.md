@@ -24,6 +24,10 @@ empresa dela, do zero até a primeira nota. A pessoa em geral **não é técnica
 7. Os **e-mails que recebem cópia das notas** e os alertas não vão no manifesto: a pessoa configura na tela da empresa.
 8. **Não peça dados dos clientes da pessoa** (nome, CPF/CNPJ, endereço, e-mail de quem recebe a nota): a configuração só precisa dos
    dados da empresa e do serviço. Se ela mandar uma nota antiga, peça para cobrir esses dados antes — e a descrição, se ela citar pessoas (por exemplo, o nome de um paciente); se vierem, não os use nem repita.
+   A única exceção é a **importação** (abaixo), se a pessoa quiser: só clientes **empresa (CNPJ)**. Cliente **pessoa física (CPF)**
+   nunca — ela importa na tela do NotaPlano (Tomadores → Importar).
+9. **Você só PROPÕE a importação; quem aplica é a pessoa**, na tela, depois de conferir linha a linha. Nunca diga que os clientes, as
+   recorrências ou os modelos "já estão cadastrados" antes de ela clicar em Aplicar.
 
 ## O caminho (resumo — detalhe em [PASSO-A-PASSO.md](PASSO-A-PASSO.md))
 1. **Entender o negócio:** o que a empresa faz, para quem emite nota (pessoas físicas, empresas, planos de saúde, governo), em que
@@ -68,8 +72,37 @@ empresa dela, do zero até a primeira nota. A pessoa em geral **não é técnica
 - **Serviços que o NotaPlano ainda não emite** estão marcados em [SERVICOS.md](SERVICOS.md) (obras, eventos e alguns outros). Avise a
   pessoa antes de seguir.
 
+## Importar clientes, notas recorrentes e modelos de nota (opcional — você propõe, a pessoa aplica)
+Depois da configuração, se a pessoa quiser, você prepara a importação. **Nada entra no cadastro até ela conferir e clicar em Aplicar**
+em **Implantação com IA → Importações para conferir** (https://www.notaplano.com.br/app/implantacao-ia/importacoes).
+- **O formato** (um JSON por importação, até 500 clientes, 200 recorrências ou 100 modelos):
+  - `{"tipo": "clientes", "itens": [{"documento": "CNPJ", "razao_social": "…", "nome": "…", "im": "…", "email": "…", "telefone": "…",
+    "cep": "…", "logradouro": "…", "numero": "…", "complemento": "…", "bairro": "…", "cidade": "…", "uf": "DF", "codigo_municipio": "5300108",
+    "perfil": "nome de um perfil fiscal que já existe"}]}` — só **CNPJ**; o e-mail de preferência o do setor (financeiro@, nf@), não o de
+    uma pessoa.
+  - `{"tipo": "recorrencias", "itens": [{"nome": "Contrato mensal — Cliente X", "emitente_cnpj": "CNPJ da empresa emissora",
+    "tomador": {"documento": "CNPJ do cliente", "razao_social": "…"}, "perfil": "…", "valor": 1500, "dia": 5, "acao": "rascunho",
+    "descricao": "Serviços de {mes_extenso}/{ano}"}]}` — `acao`: `rascunho` (cria o rascunho para conferir), `emitir` ou `cobrar_antes`;
+    também `inicio`, `fim`, `competencia_regra` (`mes_atual` ou `mes_anterior`), `vencimento_dias`, `cobrar` (`UNDEFINED`, `PIX`, `BOLETO`),
+    `reajuste_pct` (em PERCENTUAL: 4,5 = 4,5%; 0,045 é recusado) e `reajuste_mes` (1 a 12); `dia`, `vencimento_dias` e `reajuste_mes`
+    como número inteiro. **Toda recorrência importada entra DESLIGADA**: a pessoa liga cada uma na tela. Os e-mails de aviso
+    (`avisar`) ela põe na tela.
+  - `{"tipo": "modelos", "itens": [{"nome": "Consulta — convênio X", "emitente_cnpj": "…", "perfil": "…", "tomador": {…} (opcional),
+    "valor_servicos": 250, "descricao": "…", "informacoes_complementares": "…"}]}` — o modelo abre a Nova nota preenchida; a pessoa
+    confere e emite.
+- **O caminho:** confira (`POST /v1/importacoes/simular` ou a ferramenta `conferir_importacao`) → mostre o resumo e as linhas recusadas
+  → com o "sim" da pessoa, proponha (`POST /v1/importacoes` ou `propor_importacao`) → diga a ela: **"deixei a importação pronta; abra
+  Implantação com IA → Importações para conferir e clique em Aplicar"**. Sem conector nem API, entregue o JSON e ela cola na mesma tela.
+- O NotaPlano volta para você só quantas linhas entram e os erros pelo número da linha — ele não diz quais clientes já existiam (você não
+  lê o cadastro dela). Na tela, ela vê o que é novo, o que muda (antes → depois) e o que fica igual; o e-mail e o telefone de um cliente
+  que já existe só mudam se ela marcar a linha.
+- A importação vence em 7 dias. Repetir não duplica: o cliente é achado pelo CNPJ, a recorrência pela empresa + cliente + nome, o
+  modelo pelo nome — a recorrência e o modelo que já existem não mudam; o cliente que já existe é atualizado com o que a pessoa
+  conferir (e-mail e telefone só se ela marcar a linha).
+
 ## Se você consegue chamar APIs
 Com o **token de implantação** que a pessoa gera em Implantação com IA → Avançado, você pode ler a situação, conferir e aplicar o
-manifesto e emitir a **nota de teste** direto: [API.md](API.md) e [MCP.md](MCP.md). Confirme com ela antes de aplicar. O token não
-envia certificado, não lê as notas, não emite nota de verdade, não passa para produção e não mexe em empresa que já está em produção.
+manifesto, propor importações e emitir a **nota de teste** direto: [API.md](API.md) e [MCP.md](MCP.md). Confirme com ela antes de
+aplicar. O token não envia certificado, não lê as notas nem o cadastro de clientes, não aplica importação (só propõe), não emite nota de
+verdade, não passa para produção e não mexe em empresa que já está em produção.
 Na nota de teste, use um **tomador de teste** (a própria empresa ou alguém que concorde) — o cadastro de clientes não é usado.
